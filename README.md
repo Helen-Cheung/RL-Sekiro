@@ -36,3 +36,28 @@ DQN中策略的选择（假设这里是确定性策略）就是选取能够使�
 而ε-greedy方法是贪心算法的一个变体。具体实现的方法就是先让程序由均匀分布生成一个[0,1]区间内的随机数，如果该数值小于预设的ε，则选取能够最大化动作值的动作，否则随机选取动作。
 
 由于这样的策略选择方式，使得DQN为Off-policy的强化学习方法
+
+### DQN的变体
+* Double DQN
+* Dueling DQN
+#### Double DQN
+DQN的实践过程中会出现一些问题，比如高估了动作值（overestimation），这时候研究人员就提出了Double DQN的技术。从下图可以看出，原先的DQN选用的target值其实还是由同一个网络生成的值，只是说这个网络所选用的参数是之前的参数。而Double DQN中将target的值做了小的改变，能够达到它是由“两个网络”生成的效果。从第二行的表达式可以看出，尽管这里依旧用的是agent含有旧参数的网络，但是这里的动作索引是通过agent当前参数网络得到的，取得该值的方法就是最大化agent当前参数的网络所输出的动作值（其输入值是环境返回的下一个状态），显然这样就解耦了动作的选取和动作值的计算，动作的选取（产生的是一系列大小为（batch_size, 1）的索引）是由新参数的agent网络获取，动作值的估算是由旧参数的agent网络所得到。
+
+DQN的更新方式：
+
+![image](https://user-images.githubusercontent.com/62683546/153756142-e1a43947-396c-44d0-86e4-2857c8560088.png)
+
+Double-DQN的更新方式：
+
+![image](https://user-images.githubusercontent.com/62683546/153756236-e8ff9f42-546e-494f-b329-238d1117d72a.png)
+
+#### Dueling DQN
+Dueling DQN最重要的一点就是改进了DQN中的网络结构，将Q值拆分成状态值V和优势函数（Advantage Function）。该方法能够更有效率地对Q值进行更新，因为每一次V值更新之后，都要加在A函数的所有维度上（相当于一个bias），相当于其他动作的值也同时被更新了。
+
+![image](https://user-images.githubusercontent.com/62683546/153756279-2eb31794-e0c0-4165-b2c9-fd0fd8f7194d.png)
+
+## 只狼的强化学习环境设置
+
+
+
+
