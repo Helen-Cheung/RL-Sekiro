@@ -4,5 +4,5 @@ D3QN 强化学习打只狼
 ## 理论基础
 ### Q-Learning
 更新公式：
-$$ Q\left(S_{t}, A_{t}\right) \leftarrow Q\left(S_{t}, A_{t}\right)+\alpha\left[R_{t+1}+\gamma \max _{a} Q\left(S_{t+1}, a\right)-Q\left(S_{t}, A_{t}\right)\right] $$
+![image](https://user-images.githubusercontent.com/62683546/153753386-af7c79d8-16be-46f0-baa5-47b220734ba5.png)
 特点：off-policy
